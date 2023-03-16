@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ParticleSystem areaParticle;
     [SerializeField] float pingCooldown;
     [SerializeField] float moveSpeed;
-    [SerializeField] int hp;
+    public int hp;
     [SerializeField] float damageCooldown;
     [SerializeField] float pushForce;
 
