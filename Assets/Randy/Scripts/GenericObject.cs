@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 public class GenericObject : MonoBehaviour
 {
-    [SerializeField] Light2D _light;
+    Light2D _light;
     [SerializeField] float duration;
 
     // Start is called before the first frame update
@@ -29,6 +29,7 @@ public class GenericObject : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
+        //if (_light.enabled) return;
         _light.enabled = true;
         StartCoroutine(LightTimer());
     }

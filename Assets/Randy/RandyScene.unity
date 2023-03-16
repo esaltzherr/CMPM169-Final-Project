@@ -5238,7 +5238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25e375d0301b8584fa242f9825d65057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _light: {fileID: 0}
   duration: 5
 --- !u!114 &761812846
 MonoBehaviour:
@@ -5326,7 +5325,7 @@ GameObject:
   - component: {fileID: 769458205}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5512,10 +5511,14 @@ MonoBehaviour:
   directionalParticle: {fileID: 343736973}
   areaParticle: {fileID: 1242907100}
   pingCooldown: 3
-  moveSpeed: 400
+  moveSpeed: 10
+  hp: 0
+  damageCooldown: 0
+  pushForce: 0
   moveDirection: {x: 0, y: 0}
   angle: 0
   ready: 0
+  vulnerable: 0
 --- !u!50 &769458207
 Rigidbody2D:
   serializedVersion: 4
@@ -15648,7 +15651,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25e375d0301b8584fa242f9825d65057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _light: {fileID: 0}
   duration: 4
 --- !u!114 &1243462498
 MonoBehaviour:
@@ -15924,7 +15926,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25e375d0301b8584fa242f9825d65057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _light: {fileID: 0}
   duration: 5
 --- !u!1 &1615431797
 GameObject:
