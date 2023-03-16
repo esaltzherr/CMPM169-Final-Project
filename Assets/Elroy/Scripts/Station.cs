@@ -6,8 +6,6 @@ public class Station : MonoBehaviour
 {
     [SerializeField] int radius;
     [SerializeField] int ClaimRadius;
-    [SerializeField] int PulseSpeed;
-    [SerializeField] int PulseBetween;
     [SerializeField] int CapturePings;
     [SerializeField] int CurrentPings;
     [SerializeField] int DeChargeRate;
@@ -15,6 +13,7 @@ public class Station : MonoBehaviour
     [SerializeField] Color UnClaimedColor;
 
     public bool within = false;
+    // 0.4375
     public bool captured = false;
 
     SpriteRenderer child;
@@ -37,11 +36,9 @@ public class Station : MonoBehaviour
     }
     
     IEnumerator Decharge(){
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(5);
         CurrentPings--;
-        if(CurrentPings < CapturePings && station.color == ClaimedColor){
-            station.color = UnClaimedColor;
-        }
+        
     }
 
     void OnParticleCollision(GameObject other) {
