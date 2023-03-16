@@ -13,13 +13,15 @@ public class EnemyMovement : MonoBehaviour
     private int patrolPointIndex;
 
     [Header("Chase")]
-    [SerializeField] private float duration;
+    [SerializeField] private float lightDuration;
 
+    [HideInInspector] public bool trapped;
+    [HideInInspector] public MovementMode mode;
     private GameManager gMan;
     private Seeker seek;
     private AIPath path;
     private Light2D viewLight;
-    private MovementMode mode;
+    Transform player;
 
     private void Awake() {
         seek = GetComponent<Seeker>();
@@ -35,6 +37,15 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private void Update() {
+        if(!player)
+            player = gMan.player.transform;
+
+        // don't move if trapped
+        if(trapped) {
+            StopCoroutine("BackToPatrol");
+            return;
+        }
+
         // patrol mode
         if(mode == MovementMode.PATROL) {
             // transition from other mode to patrol mode
@@ -49,16 +60,12 @@ public class EnemyMovement : MonoBehaviour
                 path.destination = pos;
             }
         }
-        else if(mode == MovementMode.CHASE) {
-            if(gMan.player == null) return;
 
-            // keep chasing player if in player view radius
-            Transform player = gMan.player.transform;
-            if(Vector2.Distance(player.position, transform.position) < player.GetComponentInChildren<Light2D>().pointLightOuterRadius) {
-                Vector3 pos = gMan.player.transform.position;
-                seek.StartPath(transform.position, pos);
-                path.destination = pos;
-            }
+        // chase players in range
+        if(Vector2.Distance(player.position, transform.position) < player.GetComponentInChildren<Light2D>().pointLightOuterRadius) {
+            mode = MovementMode.CHASE;
+            CalculatePlayerPos();
+            StartCoroutine("BackToPatrol");
         }
     }
 
@@ -66,17 +73,20 @@ public class EnemyMovement : MonoBehaviour
         return path.remainingDistance < closeDistance;
     }
 
-    private void OnParticleCollision(GameObject other) {
-        // get player's last known position and chase to it
-        Vector2 pos = other.GetComponentInParent<SimplePlayer>().lastPos;
+    private void CalculatePlayerPos() {
+        Vector3 pos = player.position;
         seek.StartPath(transform.position, pos);
         path.destination = pos;
-        StartCoroutine(Chase());
     }
 
-    private IEnumerator Chase() {
-        // chase player until light turns off
+    private void OnParticleCollision(GameObject other) {
         mode = MovementMode.CHASE;
+        CalculatePlayerPos();
+        StartCoroutine("BackToPatrol");
+    }
+
+    private IEnumerator BackToPatrol() {
+        // chase player until light turns off
         StartCoroutine(LightControl(() => CloseToDestination(0.15f)));
         yield return new WaitUntil(() => viewLight.enabled == false);
         mode = MovementMode.PATROL;
@@ -85,7 +95,12 @@ public class EnemyMovement : MonoBehaviour
     private IEnumerator LightControl(System.Func<bool> offCond) {
         viewLight.enabled = true;
         yield return new WaitUntil(offCond);
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(lightDuration);
         viewLight.enabled = false;
+    }
+
+    public void MoveToTrap(Vector3 trapPos) {
+        seek.StartPath(transform.position, trapPos);
+        path.destination = trapPos;
     }
 }
