@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public List<Station> stations;
 
     [HideInInspector] public GameObject player;
+    private PlayerController pController;
 
     private void Awake() {
         if(instance != this)
@@ -17,20 +18,24 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update() {
-        if(stations.Count == 0)
-            return;
+        if(player&& !pController)
+            pController = player.GetComponent<PlayerController>();
 
         if(AllStationsCaptured()) {
-            print("GAME OVER");
+            print("WIN");
+        }
+        else if(pController && pController.hp <= 0) {
+            print("LOSE");
         }
     }
 
     private bool AllStationsCaptured() {
-        // foreach(Station station in stations) {
-        //     if(!station.captured)
-        //         return false;
-        // }
-        // return true;
-        return false;
+        if(stations.Count == 0) return false;
+        
+        foreach(Station station in stations) {
+            if(!station.captured)
+                return false;
+        }
+        return true;
     }
 }

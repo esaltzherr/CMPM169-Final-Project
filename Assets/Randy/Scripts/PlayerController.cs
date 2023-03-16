@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = moveDirection * moveSpeed;
     }
 
-    public void applyDamage(GameObject other)
+    public void ApplyDamage(GameObject other)
     {
         Vector2 push = new Vector2(transform.position.x - other.transform.position.x, transform.position.y - other.transform.position.y);
         push.Normalize();
