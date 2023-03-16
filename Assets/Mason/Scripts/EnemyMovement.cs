@@ -69,6 +69,12 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.tag == "Player") {
+            //other.gameObject.GetComponent<PlayerController>().ApplyDamage(gameObject);
+        }
+    }
+
     private bool CloseToDestination(float closeDistance) {
         return path.remainingDistance < closeDistance;
     }

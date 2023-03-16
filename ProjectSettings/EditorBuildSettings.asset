@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Mason/MainMenu.unity
+    guid: 58937e0aeb0b021419cc7dfc7b70c48b
+  - enabled: 1
+    path: Assets/Main/Main.unity
+    guid: 9c505d90ce924844dadca3ffdb48ae89
+  - enabled: 1
     path: Assets/Randy/RandyScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Mason/MasonScene.unity
+    guid: 7e0989b4c8001014d80203dc5154d85e
+  - enabled: 1
+    path: Assets/Elroy/Elroy Scene.unity
+    guid: 580482e9398df8b4e832894f23ab9c7a
   m_configObjects: {}
