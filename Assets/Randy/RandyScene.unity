@@ -3951,7 +3951,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 247
+      m_Bits: 503
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -5126,7 +5126,7 @@ GameObject:
   - component: {fileID: 761812842}
   - component: {fileID: 761812846}
   - component: {fileID: 761812845}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5512,9 +5512,9 @@ MonoBehaviour:
   areaParticle: {fileID: 1242907100}
   pingCooldown: 3
   moveSpeed: 10
-  hp: 0
-  damageCooldown: 0
-  pushForce: 0
+  hp: 3
+  damageCooldown: 2
+  pushForce: 2
   moveDirection: {x: 0, y: 0}
   angle: 0
   ready: 0
@@ -14564,7 +14564,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 247
+      m_Bits: 503
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -15549,7 +15549,7 @@ GameObject:
   - component: {fileID: 1243462496}
   - component: {fileID: 1243462498}
   - component: {fileID: 1243462497}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Big Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15744,7 +15744,7 @@ GameObject:
   - component: {fileID: 1360431815}
   - component: {fileID: 1360431818}
   - component: {fileID: 1360431819}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
