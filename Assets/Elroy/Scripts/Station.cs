@@ -15,6 +15,7 @@ public class Station : MonoBehaviour
     [SerializeField] Color UnClaimedColor;
 
     public bool within = false;
+    // 0.4375
     public bool captured = false;
 
     SpriteRenderer child;
@@ -39,9 +40,7 @@ public class Station : MonoBehaviour
     IEnumerator Decharge(){
         yield return new WaitForSeconds(1);
         CurrentPings--;
-        if(CurrentPings < CapturePings && station.color == ClaimedColor){
-            station.color = UnClaimedColor;
-        }
+        
     }
 
     void OnParticleCollision(GameObject other) {
