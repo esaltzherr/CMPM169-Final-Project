@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ParticleSystem areaParticle;
     [SerializeField] float pingCooldown;
     [SerializeField] float moveSpeed;
+    [SerializeField] int hp;
+    [SerializeField] float damageCooldown;
+    [SerializeField] float pushForce;
 
     Rigidbody2D _rb;
 
@@ -17,11 +20,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Vector2 moveDirection;
     [SerializeField] float angle;
     [SerializeField] bool ready;
+    [SerializeField] bool vulnerable;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         ready = true;
+        vulnerable = true;
     }
 
     // Start is called before the first frame update
@@ -78,6 +83,23 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyMove()
     {
-        _rb.velocity = moveDirection * moveSpeed * Time.deltaTime;
+        _rb.velocity = moveDirection * moveSpeed;
+    }
+
+    public void applyDamage(GameObject other)
+    {
+        Vector2 push = new Vector2(transform.position.x - other.transform.position.x, transform.position.y - other.transform.position.y);
+        push.Normalize();
+        _rb.AddForce(push * pushForce, ForceMode2D.Impulse);
+        if (!vulnerable) return;
+        hp--;
+        DamageCooldown();
+    }
+
+    private IEnumerator DamageCooldown()
+    {
+        vulnerable = false;
+        yield return new WaitForSeconds(damageCooldown);
+        vulnerable = true;
     }
 }
