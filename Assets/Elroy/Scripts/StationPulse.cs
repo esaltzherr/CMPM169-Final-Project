@@ -20,7 +20,6 @@ public class StationPulse : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D obj){
         if (obj.gameObject.name == "Player"){
-            print("SHJFHLSAKJhFJKS");
             lights.enabled = true;
         }
         

@@ -6,8 +6,6 @@ public class Station : MonoBehaviour
 {
     [SerializeField] int radius;
     [SerializeField] int ClaimRadius;
-    [SerializeField] int PulseSpeed;
-    [SerializeField] int PulseBetween;
     [SerializeField] int CapturePings;
     [SerializeField] int CurrentPings;
     [SerializeField] int DeChargeRate;
@@ -38,7 +36,7 @@ public class Station : MonoBehaviour
     }
     
     IEnumerator Decharge(){
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(5);
         CurrentPings--;
         
     }
