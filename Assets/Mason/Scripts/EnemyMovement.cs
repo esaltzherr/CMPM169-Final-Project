@@ -71,7 +71,6 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.tag == "Player") {
-            print("yo");
             other.gameObject.GetComponent<PlayerController>().ApplyDamage(gameObject);
         }
     }
