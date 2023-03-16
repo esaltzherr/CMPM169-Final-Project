@@ -11,64 +11,55 @@ public class Station : MonoBehaviour
     [SerializeField] int CapturePings;
     [SerializeField] int CurrentPings;
     [SerializeField] int DeChargeRate;
-    [SerializeField] Color NewColor;
+    [SerializeField] Color ClaimedColor;
+    [SerializeField] Color UnClaimedColor;
 
-    bool within = false;
+    public bool within = false;
+    public bool captured = false;
 
     SpriteRenderer child;
+    SpriteRenderer station;
     
     // Start is called before the first frame update
     void Start()
     {
         child = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        print(child);
+        child.transform.localScale = new Vector3(ClaimRadius, ClaimRadius, 0.0f);
+        station = GetComponent<SpriteRenderer>();
+        GameManager.instance.stations.Add(this);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(within)
-        {
-            Pulse();
-            // if(GameManager.instance.ping){
-            //     CurrentPings++;
-            //     if(CurrentPings >= CapturePings){
-            //         //Change Color to green to show captured.
-            //     }
-            //     StopCoroutine(Decharge());
-            //     StartCoroutine(Decharge());
-            // }
+
+    }
+    
+    IEnumerator Decharge(){
+        yield return new WaitForSeconds(1);
+        CurrentPings--;
+        if(CurrentPings < CapturePings && station.color == ClaimedColor){
+            station.color = UnClaimedColor;
+        }
+    }
+
+    void OnParticleCollision(GameObject other) {
+        Transform player = other.transform.parent;
+        print(Vector2.Distance(player.position, transform.position));
+        if(player.tag == "Player" && Vector2.Distance(player.position, transform.position) < ClaimRadius) {
+            CurrentPings++;
+            StopCoroutine(Decharge());
+            StartCoroutine(Decharge());
+            if(CurrentPings >= CapturePings){
+                //Change Color to green to show captured.
+                station.color = ClaimedColor;
+                captured = true;
+                StopCoroutine(Decharge());
+            }
             
         }
-        
-
-        
     }
-    void Pulse(){
-        //Color newColor = new Color(100,200,200, 255);
-
-        
-    
-        child.color = new Color32(100,100,255,255);
-    }
-    IEnumerator Decharge(){
-        yield return new WaitForSeconds(10);
-        CurrentPings--;
-    }
-
-    private void OnTriggerEnter2D(Collider2D obj){
-        if (obj.gameObject.name == "Circle"){
-            within = true;
-        }
-        
-    }
-    
-    private void OnTriggerExit2D(Collider2D obj){
-        if (obj.gameObject.name == "Circle"){
-            within = false;
-        }
-    }
-    
     
     
 }
