@@ -76,6 +76,7 @@ public class Station : MonoBehaviour
     public void Deactivate(){
         captured = false;
         CurrentPings = 0;
+        station.color = UnClaimedColor;
     }
     
     
