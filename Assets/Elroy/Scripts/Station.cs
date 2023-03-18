@@ -11,6 +11,8 @@ public class Station : MonoBehaviour
     [SerializeField] int DeChargeRate;
     [SerializeField] Color ClaimedColor;
     [SerializeField] Color UnClaimedColor;
+    [SerializeField] bool recentlyHit;
+    int hitTimer = 1;
 
     public bool within = false;
     // 0.4375
@@ -40,14 +42,28 @@ public class Station : MonoBehaviour
         CurrentPings--;
         
     }
+    IEnumerator Hit(){
+        recentlyHit = true;
+        yield return new WaitForSeconds(hitTimer); 
+        recentlyHit = false;
+    }
 
     void OnParticleCollision(GameObject other) {
+        
+        
         Transform player = other.transform.parent;
         print(Vector2.Distance(player.position, transform.position));
         if(player.tag == "Player" && Vector2.Distance(player.position, transform.position) < ClaimRadius) {
-            CurrentPings++;
+            
+            if(recentlyHit){
+                return;
+            }
+            StopCoroutine(Hit());
+            StartCoroutine(Hit());
             StopCoroutine(Decharge());
             StartCoroutine(Decharge());
+            CurrentPings++;
+            
             if(CurrentPings >= CapturePings){
                 //Change Color to green to show captured.
                 station.color = ClaimedColor;
@@ -56,6 +72,10 @@ public class Station : MonoBehaviour
             }
             
         }
+    }
+    public void Deactivate(){
+        captured = false;
+        CurrentPings = 0;
     }
     
     
