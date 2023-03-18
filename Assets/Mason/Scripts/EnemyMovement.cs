@@ -15,18 +15,25 @@ public class EnemyMovement : MonoBehaviour
     [Header("Chase")]
     [SerializeField] private float lightDuration;
 
+    [Header("Alarm")]
+    [SerializeField] private float deactivateTime;
+
     [HideInInspector] public bool trapped;
     [HideInInspector] public MovementMode mode;
     private GameManager gMan;
     private Seeker seek;
     private AIPath path;
     private Light2D viewLight;
-    Transform player;
+    private CircleCollider2D stationTrigger;
+    private Transform player;
+    private Station currentStation;
 
     private void Awake() {
         seek = GetComponent<Seeker>();
         path = GetComponent<AIPath>();
         viewLight = GetComponent<Light2D>();
+        stationTrigger = GetComponent<CircleCollider2D>();
+
         viewLight.enabled = false;
         mode = MovementMode.PATROL;
         patrolPointIndex = 0;
@@ -55,16 +62,21 @@ public class EnemyMovement : MonoBehaviour
             // switch patrol points when close
             if(CloseToDestination(0.15f)) {
                 patrolPointIndex = (patrolPointIndex + 1) % patrolPoints.Count;
-                Vector3 pos = patrolPoints[patrolPointIndex];
-                seek.StartPath(transform.position, pos);
-                path.destination = pos;
+                SetNewDestination(patrolPoints[patrolPointIndex]);
+            }
+        }
+        else if(mode == MovementMode.ALARM) {
+            if(CloseToDestination(2)) {
+                // TODO: start a coroutine to deactivate a station if close
+                StartCoroutine("DeactivateStation");
             }
         }
 
         // chase players in range
         if(Vector2.Distance(player.position, transform.position) < player.GetComponentInChildren<Light2D>().pointLightOuterRadius) {
             mode = MovementMode.CHASE;
-            CalculatePlayerPos();
+            SetNewDestination(player.position);
+            StopCoroutine("DeactivateStation");
             StartCoroutine("BackToPatrol");
         }
     }
@@ -75,26 +87,38 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private bool CloseToDestination(float closeDistance) {
-        return path.remainingDistance < closeDistance;
-    }
-
-    private void CalculatePlayerPos() {
-        Vector3 pos = player.position;
-        seek.StartPath(transform.position, pos);
-        path.destination = pos;
+    private void OnTriggerEnter2D(Collider2D other) {
+        Station station = other.GetComponent<Station>();
+        if(other.tag == "Station" && station.captured) {
+            print("yo");
+            mode = MovementMode.ALARM;
+            currentStation = station;
+            SetNewDestination(other.transform.position);
+        }
     }
 
     private void OnParticleCollision(GameObject other) {
         mode = MovementMode.CHASE;
-        CalculatePlayerPos();
+        SetNewDestination(player.position);
         StartCoroutine("BackToPatrol");
+    }
+
+    private bool CloseToDestination(float closeDistance) {
+        return path.remainingDistance < closeDistance;
     }
 
     private IEnumerator BackToPatrol() {
         // chase player until light turns off
         StartCoroutine(LightControl(() => CloseToDestination(0.15f)));
         yield return new WaitUntil(() => viewLight.enabled == false);
+        mode = MovementMode.PATROL;
+    }
+
+    private IEnumerator DeactivateStation() {
+        SetNewDestination(Vector3.positiveInfinity);
+        yield return new WaitForSeconds(deactivateTime);
+        currentStation.Deactivate();
+        currentStation = null;
         mode = MovementMode.PATROL;
     }
 
@@ -105,8 +129,8 @@ public class EnemyMovement : MonoBehaviour
         viewLight.enabled = false;
     }
 
-    public void MoveToTrap(Vector3 trapPos) {
-        seek.StartPath(transform.position, trapPos);
-        path.destination = trapPos;
+    public void SetNewDestination(Vector3 destination) {
+        seek.StartPath(transform.position, destination);
+        path.destination = destination;
     }
 }

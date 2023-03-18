@@ -26,7 +26,7 @@ public class Trap : MonoBehaviour
 
         // trap enemy
         move.trapped = true;
-        move.MoveToTrap(transform.position);
+        move.SetNewDestination(transform.position);
         yield return new WaitForSeconds(trapTime);
 
         // un-trap enemy

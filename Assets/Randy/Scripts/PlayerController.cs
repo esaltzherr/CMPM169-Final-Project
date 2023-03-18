@@ -10,9 +10,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ParticleSystem areaParticle;
     [SerializeField] float pingCooldown;
     [SerializeField] float moveSpeed;
-    public int hp;
     [SerializeField] float damageCooldown;
     [SerializeField] float pushForce;
+    public int maxHp;
+    public int hp { get; private set; }
 
     Rigidbody2D _rb;
 
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         ready = true;
         vulnerable = true;
+        hp = maxHp;
     }
 
     // Start is called before the first frame update
