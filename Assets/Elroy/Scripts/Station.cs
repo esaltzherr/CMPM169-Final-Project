@@ -14,6 +14,8 @@ public class Station : MonoBehaviour
     [SerializeField] bool recentlyHit;
     int hitTimer = 1;
 
+    Coroutine DechargeRoutine = null;
+
     public bool within = false;
     // 0.4375
     public bool captured = false;
@@ -40,7 +42,7 @@ public class Station : MonoBehaviour
     IEnumerator Decharge(){
         yield return new WaitForSeconds(5);
         CurrentPings--;
-        
+        DechargeRoutine = StartCoroutine(Decharge());
     }
     IEnumerator Hit(){
         recentlyHit = true;
@@ -60,15 +62,17 @@ public class Station : MonoBehaviour
             }
             StopCoroutine(Hit());
             StartCoroutine(Hit());
-            StopCoroutine(Decharge());
-            StartCoroutine(Decharge());
+            if(DechargeRoutine != null){
+                StopCoroutine(DechargeRoutine);
+            }  
+            DechargeRoutine = StartCoroutine(Decharge());
             CurrentPings++;
             
             if(CurrentPings >= CapturePings){
                 //Change Color to green to show captured.
                 station.color = ClaimedColor;
                 captured = true;
-                StopCoroutine(Decharge());
+                StopCoroutine(DechargeRoutine);
             }
             
         }
