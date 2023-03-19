@@ -12,11 +12,11 @@ public class Healthbar : MonoBehaviour
         bar = GetComponent<Image>();
     }
 
-    private void Start() {
-        player = GameManager.instance.player.GetComponent<PlayerController>();
-    }
-
     private void Update() {
+        if(GameManager.instance.gameOver) return;
+
+        if(!player)
+            player = GameManager.instance.player.GetComponent<PlayerController>();
         bar.fillAmount = (float)player.hp / (float)player.maxHp;
     }
 }

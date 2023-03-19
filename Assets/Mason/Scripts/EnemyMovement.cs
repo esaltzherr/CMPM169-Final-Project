@@ -27,7 +27,6 @@ public class EnemyMovement : MonoBehaviour
     private Light2D viewLight;
     private Transform player;
     private Station currentStation;
-
     private bool[] coroutinesRunning;
 
     private void Awake() {
@@ -47,6 +46,12 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private void Update() {
+        if(gMan.gameOver) {
+            StopAllCoroutines();
+            SetNewDestination(Vector3.positiveInfinity);
+            return;
+        }
+
         if(!player)
             player = gMan.player.transform;
 

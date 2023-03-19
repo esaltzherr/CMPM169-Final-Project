@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &463291539
 RectTransform:
   m_ObjectHideFlags: 0
@@ -623,12 +623,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: 'In the darkness, you must ping objets to see. Your goal is to find task
-    stations in the area and ping them until they are activated. Activate all stations
-    to win.
+    stations in the area and use your radial ping until they are activated. Activate
+    all stations to win.
 
 
-    Avoid patrolling agents. They will attempt to deactivate any active
-    stations. Use stealth or deception to sneak past them or lure them into traps.'
+    Avoid patrolling agents. They will attempt to deactivate
+    any active stations. Use stealth or deception to sneak past them or lure them
+    into traps.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -1386,7 +1387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1061494608
 RectTransform:
   m_ObjectHideFlags: 0

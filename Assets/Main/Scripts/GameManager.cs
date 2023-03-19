@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public List<Station> stations;
 
+    [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject loseScreen;
     [HideInInspector] public GameObject player;
+    public bool gameOver { get; private set; }
+    public List<Station> stations;
     private PlayerController pController;
 
     private void Awake() {
@@ -15,17 +19,24 @@ public class GameManager : MonoBehaviour
             instance = this;
         else
             Destroy(this);
+
+        winScreen.SetActive(false);
+        loseScreen.SetActive(false);
     }
 
     private void Update() {
-        if(player&& !pController)
+        if(gameOver) return;
+
+        if(player && !pController)
             pController = player.GetComponent<PlayerController>();
 
         if(AllStationsCaptured()) {
-            print("WIN");
+            MenuScreen(winScreen);
+            gameOver = true;
         }
         else if(pController && pController.hp <= 0) {
-            print("LOSE");
+            MenuScreen(loseScreen);
+            gameOver = true;
         }
     }
 
@@ -37,5 +48,15 @@ public class GameManager : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    private void MenuScreen(GameObject screen) {
+        screen.SetActive(true);
+        screen.GetComponent<Animator>().SetTrigger("FadeIn");
+    }
+
+    public void LoadMainMenu() {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
 }

@@ -17,6 +17,11 @@ public class Trap : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        if(GameManager.instance.gameOver) {
+            StopAllCoroutines();
+            return;
+        }
+
         if(other.tag == "Enemy" && trapActive)
             StartCoroutine(TrapEnemy(other.gameObject));
     }
