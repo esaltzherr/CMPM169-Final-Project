@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 813964198}
   - component: {fileID: 813964199}
   - component: {fileID: 813964200}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Station
   m_TagString: Station
   m_Icon: {fileID: 0}
@@ -247,6 +247,7 @@ MonoBehaviour:
   DeChargeRate: 100
   ClaimedColor: {r: 0.081186295, g: 1, b: 0, a: 1}
   UnClaimedColor: {r: 1, g: 0, b: 0, a: 1}
+  recentlyHit: 0
   within: 0
   captured: 0
 --- !u!50 &813964199
