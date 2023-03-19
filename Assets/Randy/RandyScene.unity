@@ -5511,7 +5511,7 @@ MonoBehaviour:
   directionalParticle: {fileID: 343736973}
   areaParticle: {fileID: 1242907100}
   pingCooldown: 3
-  moveSpeed: 10
+  moveSpeed: 5
   acceleration: 5
   deceleration: 5
   velocityPow: 0.75

@@ -37,6 +37,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(GameManager.instance.gameOver)
+        {
+            StopAllCoroutines();
+            return;
+        }
         GameManager.instance.player = gameObject;
     }
 
