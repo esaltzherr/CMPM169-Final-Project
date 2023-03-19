@@ -1174,7 +1174,6 @@ GameObject:
   - component: {fileID: 2042794995}
   - component: {fileID: 2042794998}
   - component: {fileID: 2042794994}
-  - component: {fileID: 2042794999}
   - component: {fileID: 2042794993}
   - component: {fileID: 2042794992}
   - component: {fileID: 2042794991}
@@ -1448,6 +1447,7 @@ MonoBehaviour:
   - {x: -2.05, y: -1.98, z: 0}
   - {x: 0.01, y: -8.38, z: 0}
   lightDuration: 3
+  stationRadius: 5
   deactivateTime: 5
   trapped: 0
   mode: 0
@@ -1472,19 +1472,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &2042794999
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2042794989}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.21133333}
-  serializedVersion: 2
-  m_Radius: 5
