@@ -37,17 +37,17 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(GameManager.instance.gameOver)
-        {
-            StopAllCoroutines();
-            return;
-        }
         GameManager.instance.player = gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.instance.gameOver)
+        {
+            StopAllCoroutines();
+            return;
+        }
         GetAngle();
         pivot.transform.rotation = Quaternion.Euler(0, 0, angle);
         ApplyMove();
