@@ -7,6 +7,7 @@ public class GenericObject : MonoBehaviour
 {
     Light2D _light;
     [SerializeField] float duration;
+    Coroutine lightTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -29,8 +30,9 @@ public class GenericObject : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        //if (_light.enabled) return;
+        if(lightTimer != null)
+            StopCoroutine(lightTimer);
         _light.enabled = true;
-        StartCoroutine(LightTimer());
+        lightTimer = StartCoroutine(LightTimer());
     }
 }

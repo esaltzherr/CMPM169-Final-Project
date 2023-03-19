@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ParticleSystem areaParticle;
     [SerializeField] float pingCooldown;
     [SerializeField] float moveSpeed;
+    [SerializeField] private float acceleration;
+    [SerializeField] private float deceleration;
+    [SerializeField] private float velocityPow;
     [SerializeField] float damageCooldown;
     [SerializeField] float pushForce;
     public int maxHp;
@@ -85,7 +88,12 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyMove()
     {
-        _rb.velocity = moveDirection * moveSpeed;
+        Vector2 targetVelocity = moveDirection * moveSpeed;
+        Vector2 speedDif = new Vector2(targetVelocity.x - _rb.velocity.x, targetVelocity.y - _rb.velocity.y);
+        float accelRate = (Mathf.Abs(targetVelocity.x) > 0.01f && Mathf.Abs(targetVelocity.y) > 0.01f) ? acceleration : deceleration;
+        Vector2 movement = new Vector3(Mathf.Pow(Mathf.Abs(speedDif.x) * accelRate, velocityPow) * Mathf.Sign(speedDif.x),
+                                       Mathf.Pow(Mathf.Abs(speedDif.y) * accelRate, velocityPow) * Mathf.Sign(speedDif.y));
+        _rb.AddForce(movement);
     }
 
     public void ApplyDamage(GameObject other)
@@ -95,12 +103,12 @@ public class PlayerController : MonoBehaviour
         _rb.AddForce(push * pushForce, ForceMode2D.Impulse);
         if (!vulnerable) return;
         hp--;
-        DamageCooldown();
+        vulnerable = false;
+        StartCoroutine(DamageCooldown());
     }
 
     private IEnumerator DamageCooldown()
     {
-        vulnerable = false;
         yield return new WaitForSeconds(damageCooldown);
         vulnerable = true;
     }
