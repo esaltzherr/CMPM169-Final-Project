@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(PingCooldown());
             directionalParticle.Emit(40);
+            AudioManager.Instance.PlaySound(0);
         }
     }
 
@@ -70,6 +71,7 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(PingCooldown());
             areaParticle.Emit(720);
+            AudioManager.Instance.PlaySound(0);
         }
     }
 

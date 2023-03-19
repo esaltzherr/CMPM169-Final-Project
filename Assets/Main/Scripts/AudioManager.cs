@@ -19,13 +19,11 @@ public class AudioManager : MonoBehaviour
         else 
         { 
             Instance = this; 
-        } 
-    }
+        }
 
-    void Start()
-    {
         audioSource = GetComponent<AudioSource>();
     }
+
     public void PlaySound(int num)
     {
         if(num > clips.Count || num < 0 || clips[num] == null){
