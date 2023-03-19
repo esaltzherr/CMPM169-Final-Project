@@ -36,7 +36,10 @@ public class Station : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(GameManager.instance.gameOver){
+            StopAllCoroutines();
+            return;
+        }
     }
     
     IEnumerator Decharge(){

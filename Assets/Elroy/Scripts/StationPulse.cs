@@ -16,7 +16,10 @@ public class StationPulse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(GameManager.instance.gameOver){
+            StopAllCoroutines();
+            return;
+        }
     }
     private void OnTriggerEnter2D(Collider2D obj){
         if (obj.gameObject.name == "Player"){
