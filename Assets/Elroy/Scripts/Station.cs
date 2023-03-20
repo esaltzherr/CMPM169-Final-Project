@@ -12,7 +12,7 @@ public class Station : MonoBehaviour
     [SerializeField] Color ClaimedColor;
     [SerializeField] Color UnClaimedColor;
     [SerializeField] bool recentlyHit;
-    int hitTimer = 1;
+    int hitTimer = 3;
 
     Coroutine DechargeRoutine = null;
 
@@ -76,6 +76,7 @@ public class Station : MonoBehaviour
                 station.color = ClaimedColor;
                 captured = true;
                 StopCoroutine(DechargeRoutine);
+                AudioManager.Instance.PlaySound(4);
             }
             
         }
@@ -84,6 +85,7 @@ public class Station : MonoBehaviour
         captured = false;
         CurrentPings = 0;
         station.color = UnClaimedColor;
+        AudioManager.Instance.PlaySound(2);
     }
     
     
