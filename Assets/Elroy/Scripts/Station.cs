@@ -60,9 +60,10 @@ public class Station : MonoBehaviour
         print(Vector2.Distance(player.position, transform.position));
         if(player.tag == "Player" && Vector2.Distance(player.position, transform.position) < ClaimRadius) {
             
-            if(recentlyHit){
+            if(recentlyHit || captured){
                 return;
             }
+            
             StopCoroutine(Hit());
             StartCoroutine(Hit());
             if(DechargeRoutine != null){
