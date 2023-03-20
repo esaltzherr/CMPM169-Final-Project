@@ -6,7 +6,6 @@ using UnityEngine.Rendering.Universal;
 public class GenericObject : MonoBehaviour
 {
     Light2D _light;
-    [SerializeField] float duration;
     Coroutine lightTimer;
 
     // Start is called before the first frame update
@@ -24,7 +23,7 @@ public class GenericObject : MonoBehaviour
 
     IEnumerator LightTimer()
     {
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(5.0f);
         _light.enabled = false;
     }
 
