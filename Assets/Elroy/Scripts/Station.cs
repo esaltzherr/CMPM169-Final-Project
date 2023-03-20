@@ -45,6 +45,9 @@ public class Station : MonoBehaviour
     IEnumerator Decharge(){
         yield return new WaitForSeconds(5);
         CurrentPings--;
+        if(CurrentPings <= 0){
+            CurrentPings = 0;
+        }
         DechargeRoutine = StartCoroutine(Decharge());
     }
     IEnumerator Hit(){
