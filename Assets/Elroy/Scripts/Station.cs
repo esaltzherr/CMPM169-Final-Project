@@ -76,7 +76,7 @@ public class Station : MonoBehaviour
                 station.color = ClaimedColor;
                 captured = true;
                 StopCoroutine(DechargeRoutine);
-                AudioManager.Instance.PlaySound(4);
+                AudioManager.Instance.PlaySound(3);
             }
             
         }
