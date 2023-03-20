@@ -622,7 +622,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'In the darkness, you must ping objets to see. Your goal is to find task
+  m_text: 'In the darkness, you must echolocate to see. Your goal is to find task
     stations in the area and use your radial ping until they are activated. Activate
     all stations to win.
 
@@ -1353,7 +1353,6 @@ MonoBehaviour:
   - Main
   - RandyScene
   - MasonScene
-  - Elroy Scene
   menuGameObjects:
   - {fileID: 497310206}
   - {fileID: 287058816}

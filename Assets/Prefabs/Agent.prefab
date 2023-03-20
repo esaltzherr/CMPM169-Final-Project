@@ -183,7 +183,7 @@ MonoBehaviour:
   radius: 0.5
   height: 2
   canMove: 1
-  maxSpeed: 1
+  maxSpeed: 1.5
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -300,13 +300,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aac978dca0c9fc46bb71b3643565d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolPoints:
-  - {x: -6.94, y: -0.07, z: 0}
-  - {x: 1.72, y: -0.14, z: 0}
-  - {x: -2.05, y: -1.98, z: 0}
-  - {x: 0.01, y: -8.38, z: 0}
+  patrolPoints: []
   lightDuration: 3
-  stationRadius: 5
+  stationRadius: 7
   deactivateTime: 5
   trapped: 0
   mode: 0

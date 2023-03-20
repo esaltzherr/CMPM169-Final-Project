@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Mason/MasonScene.unity
     guid: 7e0989b4c8001014d80203dc5154d85e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Elroy/Elroy Scene.unity
     guid: 580482e9398df8b4e832894f23ab9c7a
   m_configObjects: {}

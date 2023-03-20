@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
     public void PingDirectional(InputAction.CallbackContext context)
     {
-        if (!ready) return;
+        if (!ready || GameManager.instance.gameOver) return;
         if (context.started)
         {
             StartCoroutine(PingCooldown());
@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     public void PingArea(InputAction.CallbackContext context)
     {
-        if (!ready) return;
+        if (!ready || GameManager.instance.gameOver) return;
         if (context.started)
         {
             StartCoroutine(PingCooldown());
